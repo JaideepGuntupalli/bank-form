@@ -65,33 +65,13 @@ import {
     PopoverTrigger,
 } from "@/components/ui/popover";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { useToast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 
-// const MAX_IMAGE_SIZE = 5242880; // 5 MB
-// const ALLOWED_IMAGE_TYPES = [
-//     "image/jpeg",
-//     "image/png",
-//     "image/webp",
-//     "image/jpg",
-// ];
+const MAX_IMAGE_SIZE = 500000; // 5 KB
 
 const formSchema = z.object({
-    // latestPhoto: z
-    //     .custom<FileList>((val) => val instanceof FileList, "Required")
-    //     .refine((files) => files.length === 1, `Only one image is allowed.`)
-    //     .refine(
-    //         (files) =>
-    //             Array.from(files).every((file) => file.size <= MAX_IMAGE_SIZE),
-    //         `File size should be less than 5 MB.`
-    //     )
-    //     .refine(
-    //         (files) =>
-    //             Array.from(files).every((file) =>
-    //                 ALLOWED_IMAGE_TYPES.includes(file.type)
-    //             ),
-    //         "Only these types are allowed .jpg, .jpeg, .png and .webp"
-    //     ),
     customerId: z.string(),
     shareAccountNumber: z.string().regex(/^[a-zA-Z0-9]*$/), // Alphanumeric
     memberName: z.string(),
@@ -163,39 +143,21 @@ export function ProfileForm() {
         resolver: zodResolver(formSchema),
     });
 
+    const { toast } = useToast();
+
     // 2. Define a submit handler.
     function onSubmit(values: z.infer<typeof formSchema>) {
         // Do something with the form values.
         // ✅ This will be type-safe and validated.
         console.log(values);
+        console.log(latestPhoto);
     }
     const [formStage, setformStage] = useState(0);
+    const [latestPhoto, setLatestPhoto] = useState<File | null>(null);
 
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-                {/* <FormField
-                    name="latestPhoto"
-                    render={({ field }) => {
-                        return (
-                            <FormItem>
-                                <FormLabel>Latest Photo</FormLabel>
-                                <FormControl>
-                                    <Input
-                                        type="file"
-                                        accept="image/*"
-                                        multiple={false}
-                                        disabled={form.formState.isSubmitting}
-                                    />
-                                </FormControl>
-                                <FormDescription>
-                                    Upload your latest photo.
-                                </FormDescription>
-                                <FormMessage />
-                            </FormItem>
-                        );
-                    }}
-                /> */}
                 {formStage === 0 && (
                     <div className="max-w-4xl mx-auto">
                         <section className="grid grid-cols-2 gap-12 ">
@@ -209,6 +171,24 @@ export function ProfileForm() {
                                     multiple={false}
                                     disabled={form.formState.isSubmitting}
                                     id="latestPhoto"
+                                    onChange={(e) => {
+                                        const file = e.target.files?.[0];
+                                        const fsize = file?.size;
+                                        if (fsize && fsize > MAX_IMAGE_SIZE) {
+                                            toast({
+                                                title: "Error: File is too big",
+                                                description:
+                                                    "File should be less than 500KB",
+                                                variant: "destructive",
+                                            });
+                                            // clear the file input
+                                            e.target.value = "";
+                                            return;
+                                        }
+                                        if (file) {
+                                            setLatestPhoto(file);
+                                        }
+                                    }}
                                 />
                                 <FormDescription>
                                     Upload your latest photo.
