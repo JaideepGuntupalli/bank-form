@@ -20,13 +20,8 @@
 
 // 	•	Id Proof(PAN/AADHAR/VOTER ID/DRIVING LICENSE)(Based on length validation)
 
-// 	•	Education Qualification(drop down)
-// 	•	Profession(drop down)
 // 	•	Office Address(multiple  line text)
-// 	•	Annual  income(drop down)
 // 	•	Date of Joining(calendar)
-// 	•	Share Purpose(Loan/Deposit/Primary Applicant /Co-Applicant / Co-borrower /Surety)(drop down)
-// 	•	No of shares(drop down)
 // 	•	Share amount(number)
 // 	•	Dividend Transfer account number(Text)
 // 	•	Medical claim Required  (Yes/No)   (radio)
@@ -34,10 +29,15 @@
 // 	•	Family Member Shares Details(Individual/Group)(radio)
 // 	•	Family Indicator(unique id)
 // 	•	Name of the family member(text)
+// 	•	Education Qualification(drop down)
+// 	•	Profession(drop down)
+// 	•	Annual  income(drop down)
+// 	•	Share Purpose(Loan/Deposit/Primary Applicant /Co-Applicant / Co-borrower /Surety)(drop down)
+// 	•	No of shares(drop down)
 // 	•	Relationship of the  group member(drop down)
+// 	•	Member Position in Bank(Director/Commit/Staff/General)(drop down)
 // 	•	Cash awards/Education allowances (check box)
 // 	•	Voting Rate (Yes/No) (radio)
-// 	•	Member Position in Bank(Director/Commit/Staff/General)(drop down)
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CalendarIcon } from "@radix-ui/react-icons";
@@ -65,6 +65,13 @@ import {
     PopoverTrigger,
 } from "@/components/ui/popover";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
 import { useToast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
@@ -535,7 +542,7 @@ export function ProfileForm() {
                                     <FormItem>
                                         <FormLabel>ID Proof</FormLabel>
                                         <FormControl>
-                                            <RadioGroup
+                                            {/* <RadioGroup
                                                 onValueChange={field.onChange}
                                             >
                                                 <FormItem className="flex items-center space-x-3 space-y-0">
@@ -562,7 +569,29 @@ export function ProfileForm() {
                                                         DRIVING LICENSE
                                                     </FormLabel>
                                                 </FormItem>
-                                            </RadioGroup>
+                                            </RadioGroup> */}
+                                            {/* Use select */}
+                                            <Select {...field}>
+                                                <FormControl>
+                                                    <SelectTrigger>
+                                                        <SelectValue placeholder="Select your ID proof." />
+                                                    </SelectTrigger>
+                                                </FormControl>
+                                                <SelectContent>
+                                                    <SelectItem value="PAN">
+                                                        PAN
+                                                    </SelectItem>
+                                                    <SelectItem value="AADHAR">
+                                                        AADHAR
+                                                    </SelectItem>
+                                                    <SelectItem value="VOTER ID">
+                                                        VOTER ID
+                                                    </SelectItem>
+                                                    <SelectItem value="DRIVING LICENSE">
+                                                        DRIVING LICENSE
+                                                    </SelectItem>
+                                                </SelectContent>
+                                            </Select>
                                         </FormControl>
                                         <FormDescription>
                                             Enter your ID proof.
@@ -580,38 +609,34 @@ export function ProfileForm() {
                                             Education Qualification
                                         </FormLabel>
                                         <FormControl>
-                                            <RadioGroup
+                                            {/* Use select */}
+                                            <Select
                                                 onValueChange={field.onChange}
+                                                defaultValue={field.value}
                                             >
-                                                <FormItem className="flex items-center space-x-3 space-y-0">
-                                                    <FormControl>
-                                                        <RadioGroupItem value="High School" />
-                                                    </FormControl>
-                                                    <FormLabel>
+                                                <FormControl>
+                                                    <SelectTrigger>
+                                                        <SelectValue placeholder="Select your education qualification." />
+                                                    </SelectTrigger>
+                                                </FormControl>
+                                                <SelectContent>
+                                                    <SelectItem value="High School">
                                                         High School
-                                                    </FormLabel>
-                                                </FormItem>
-                                                <FormItem className="flex items-center space-x-3 space-y-0">
-                                                    <RadioGroupItem value="Bachelor" />
-                                                    <FormLabel>
+                                                    </SelectItem>
+                                                    <SelectItem value="Bachelor">
                                                         Bachelor
-                                                    </FormLabel>
-                                                </FormItem>
-                                                <FormItem className="flex items-center space-x-3 space-y-0">
-                                                    <RadioGroupItem value="Master" />
-                                                    <FormLabel>
+                                                    </SelectItem>
+                                                    <SelectItem value="Master">
                                                         Master
-                                                    </FormLabel>
-                                                </FormItem>
-                                                <FormItem className="flex items-center space-x-3 space-y-0">
-                                                    <RadioGroupItem value="PhD" />
-                                                    <FormLabel>PhD</FormLabel>
-                                                </FormItem>
-                                                <FormItem className="flex items-center space-x-3 space-y-0">
-                                                    <RadioGroupItem value="Other" />
-                                                    <FormLabel>Other</FormLabel>
-                                                </FormItem>
-                                            </RadioGroup>
+                                                    </SelectItem>
+                                                    <SelectItem value="PhD">
+                                                        PhD
+                                                    </SelectItem>
+                                                    <SelectItem value="Other">
+                                                        Other
+                                                    </SelectItem>
+                                                </SelectContent>
+                                            </Select>
                                         </FormControl>
                                         <FormDescription>
                                             Enter your education qualification.
@@ -620,27 +645,6 @@ export function ProfileForm() {
                                     </FormItem>
                                 )}
                             />
-                        </section>
-                        <section className="flex justify-between items-center">
-                            <Button
-                                variant="secondary"
-                                className="min-w-[256px] mt-8 mr-auto"
-                                onClick={() => setformStage(0)}
-                            >
-                                Back
-                            </Button>
-                            <Button
-                                className="min-w-[256px] mt-8 ml-auto"
-                                onClick={() => setformStage(2)}
-                            >
-                                Next
-                            </Button>
-                        </section>
-                    </div>
-                )}
-                {formStage === 2 && (
-                    <div className="max-w-4xl mx-auto">
-                        <section className="grid grid-cols-2 gap-12 ">
                             <FormField
                                 name="profession"
                                 control={form.control}
@@ -648,46 +652,34 @@ export function ProfileForm() {
                                     <FormItem>
                                         <FormLabel>Profession</FormLabel>
                                         <FormControl>
-                                            <RadioGroup
-                                                onValueChange={field.onChange}
-                                            >
-                                                <FormItem className="flex items-center space-x-3 space-y-0">
-                                                    <FormControl>
-                                                        <RadioGroupItem value="Student" />
-                                                    </FormControl>
-                                                    <FormLabel>
+                                            {/* Use select */}
+                                            <Select {...field}>
+                                                <FormControl>
+                                                    <SelectTrigger>
+                                                        <SelectValue placeholder="Select your profession." />
+                                                    </SelectTrigger>
+                                                </FormControl>
+                                                <SelectContent>
+                                                    <SelectItem value="Student">
                                                         Student
-                                                    </FormLabel>
-                                                </FormItem>
-                                                <FormItem className="flex items-center space-x-3 space-y-0">
-                                                    <RadioGroupItem value="Employed" />
-                                                    <FormLabel>
+                                                    </SelectItem>
+                                                    <SelectItem value="Employed">
                                                         Employed
-                                                    </FormLabel>
-                                                </FormItem>
-                                                <FormItem className="flex items-center space-x-3 space-y-0">
-                                                    <RadioGroupItem value="Self-Employed" />
-                                                    <FormLabel>
+                                                    </SelectItem>
+                                                    <SelectItem value="Self-Employed">
                                                         Self-Employed
-                                                    </FormLabel>
-                                                </FormItem>
-                                                <FormItem className="flex items-center space-x-3 space-y-0">
-                                                    <RadioGroupItem value="Unemployed" />
-                                                    <FormLabel>
+                                                    </SelectItem>
+                                                    <SelectItem value="Unemployed">
                                                         Unemployed
-                                                    </FormLabel>
-                                                </FormItem>
-                                                <FormItem className="flex items-center space-x-3 space-y-0">
-                                                    <RadioGroupItem value="Retired" />
-                                                    <FormLabel>
+                                                    </SelectItem>
+                                                    <SelectItem value="Retired">
                                                         Retired
-                                                    </FormLabel>
-                                                </FormItem>
-                                                <FormItem className="flex items-center space-x-3 space-y-0">
-                                                    <RadioGroupItem value="Other" />
-                                                    <FormLabel>Other</FormLabel>
-                                                </FormItem>
-                                            </RadioGroup>
+                                                    </SelectItem>
+                                                    <SelectItem value="Other">
+                                                        Other
+                                                    </SelectItem>
+                                                </SelectContent>
+                                            </Select>
                                         </FormControl>
                                         <FormDescription>
                                             Enter your profession.
@@ -719,36 +711,28 @@ export function ProfileForm() {
                                     <FormItem>
                                         <FormLabel>Annual Income</FormLabel>
                                         <FormControl>
-                                            <RadioGroup
-                                                onValueChange={field.onChange}
-                                            >
-                                                <FormItem className="flex items-center space-x-3 space-y-0">
-                                                    <FormControl>
-                                                        <RadioGroupItem value="<20k" />
-                                                    </FormControl>
-                                                    <FormLabel>
+                                            {/* Use select */}
+                                            <Select {...field}>
+                                                <FormControl>
+                                                    <SelectTrigger>
+                                                        <SelectValue placeholder="Select your annual income." />
+                                                    </SelectTrigger>
+                                                </FormControl>
+                                                <SelectContent>
+                                                    <SelectItem value="<20k">
                                                         {"<20k"}
-                                                    </FormLabel>
-                                                </FormItem>
-                                                <FormItem className="flex items-center space-x-3 space-y-0">
-                                                    <RadioGroupItem value="20k-50k" />
-                                                    <FormLabel>
+                                                    </SelectItem>
+                                                    <SelectItem value="20k-50k">
                                                         20k-50k
-                                                    </FormLabel>
-                                                </FormItem>
-                                                <FormItem className="flex items-center space-x-3 space-y-0">
-                                                    <RadioGroupItem value="50k-100k" />
-                                                    <FormLabel>
+                                                    </SelectItem>
+                                                    <SelectItem value="50k-100k">
                                                         50k-100k
-                                                    </FormLabel>
-                                                </FormItem>
-                                                <FormItem className="flex items-center space-x-3 space-y-0">
-                                                    <RadioGroupItem value=">100k" />
-                                                    <FormLabel>
+                                                    </SelectItem>
+                                                    <SelectItem value=">100k">
                                                         {">100k"}
-                                                    </FormLabel>
-                                                </FormItem>
-                                            </RadioGroup>
+                                                    </SelectItem>
+                                                </SelectContent>
+                                            </Select>
                                         </FormControl>
                                         <FormDescription>
                                             Enter your annual income.
@@ -757,6 +741,27 @@ export function ProfileForm() {
                                     </FormItem>
                                 )}
                             />
+                        </section>
+                        <section className="flex justify-between items-center">
+                            <Button
+                                variant="secondary"
+                                className="min-w-[256px] mt-8 mr-auto"
+                                onClick={() => setformStage(0)}
+                            >
+                                Back
+                            </Button>
+                            <Button
+                                className="min-w-[256px] mt-8 ml-auto"
+                                onClick={() => setformStage(2)}
+                            >
+                                Next
+                            </Button>
+                        </section>
+                    </div>
+                )}
+                {formStage === 2 && (
+                    <div className="max-w-4xl mx-auto">
+                        <section className="grid grid-cols-2 gap-12 ">
                             <FormField
                                 control={form.control}
                                 name="dateOfJoining"
@@ -821,46 +826,33 @@ export function ProfileForm() {
                                     <FormItem>
                                         <FormLabel>Share Purpose</FormLabel>
                                         <FormControl>
-                                            <RadioGroup
-                                                onValueChange={field.onChange}
-                                            >
-                                                <FormItem className="flex items-center space-x-3 space-y-0">
-                                                    <FormControl>
-                                                        <RadioGroupItem value="Loan" />
-                                                    </FormControl>
-                                                    <FormLabel>Loan</FormLabel>
-                                                </FormItem>
-                                                <FormItem className="flex items-center space-x-3 space-y-0">
-                                                    <RadioGroupItem value="Deposit" />
-                                                    <FormLabel>
+                                            <Select {...field}>
+                                                <FormControl>
+                                                    <SelectTrigger>
+                                                        <SelectValue placeholder="Select your share purpose." />
+                                                    </SelectTrigger>
+                                                </FormControl>
+                                                <SelectContent>
+                                                    <SelectItem value="Loan">
+                                                        Loan
+                                                    </SelectItem>
+                                                    <SelectItem value="Deposit">
                                                         Deposit
-                                                    </FormLabel>
-                                                </FormItem>
-                                                <FormItem className="flex items-center space-x-3 space-y-0">
-                                                    <RadioGroupItem value="Primary Applicant" />
-                                                    <FormLabel>
+                                                    </SelectItem>
+                                                    <SelectItem value="Primary Applicant">
                                                         Primary Applicant
-                                                    </FormLabel>
-                                                </FormItem>
-                                                <FormItem className="flex items-center space-x-3 space-y-0">
-                                                    <RadioGroupItem value="Co-Applicant" />
-                                                    <FormLabel>
+                                                    </SelectItem>
+                                                    <SelectItem value="Co-Applicant">
                                                         Co-Applicant
-                                                    </FormLabel>
-                                                </FormItem>
-                                                <FormItem className="flex items-center space-x-3 space-y-0">
-                                                    <RadioGroupItem value="Co-borrower" />
-                                                    <FormLabel>
+                                                    </SelectItem>
+                                                    <SelectItem value="Co-borrower">
                                                         Co-borrower
-                                                    </FormLabel>
-                                                </FormItem>
-                                                <FormItem className="flex items-center space-x-3 space-y-0">
-                                                    <RadioGroupItem value="Surety" />
-                                                    <FormLabel>
+                                                    </SelectItem>
+                                                    <SelectItem value="Surety">
                                                         Surety
-                                                    </FormLabel>
-                                                </FormItem>
-                                            </RadioGroup>
+                                                    </SelectItem>
+                                                </SelectContent>
+                                            </Select>
                                         </FormControl>
                                         <FormDescription>
                                             Enter your share purpose.
@@ -876,36 +868,34 @@ export function ProfileForm() {
                                     <FormItem>
                                         <FormLabel>No of Shares</FormLabel>
                                         <FormControl>
-                                            <RadioGroup
-                                                onValueChange={field.onChange}
-                                            >
-                                                <FormItem className="flex items-center space-x-3 space-y-0">
-                                                    <FormControl>
-                                                        <RadioGroupItem value="1" />
-                                                    </FormControl>
-                                                    <FormLabel>1</FormLabel>
-                                                </FormItem>
-                                                <FormItem className="flex items-center space-x-3 space-y-0">
-                                                    <RadioGroupItem value="2" />
-                                                    <FormLabel>2</FormLabel>
-                                                </FormItem>
-                                                <FormItem className="flex items-center space-x-3 space-y-0">
-                                                    <RadioGroupItem value="3" />
-                                                    <FormLabel>3</FormLabel>
-                                                </FormItem>
-                                                <FormItem className="flex items-center space-x-3 space-y-0">
-                                                    <RadioGroupItem value="4" />
-                                                    <FormLabel>4</FormLabel>
-                                                </FormItem>
-                                                <FormItem className="flex items-center space-x-3 space-y-0">
-                                                    <RadioGroupItem value="5" />
-                                                    <FormLabel>5</FormLabel>
-                                                </FormItem>
-                                                <FormItem className="flex items-center space-x-3 space-y-0">
-                                                    <RadioGroupItem value="More" />
-                                                    <FormLabel>More</FormLabel>
-                                                </FormItem>
-                                            </RadioGroup>
+                                            {/* Use select */}
+                                            <Select {...field}>
+                                                <FormControl>
+                                                    <SelectTrigger>
+                                                        <SelectValue placeholder="Select your no of shares." />
+                                                    </SelectTrigger>
+                                                </FormControl>
+                                                <SelectContent>
+                                                    <SelectItem value="1">
+                                                        1
+                                                    </SelectItem>
+                                                    <SelectItem value="2">
+                                                        2
+                                                    </SelectItem>
+                                                    <SelectItem value="3">
+                                                        3
+                                                    </SelectItem>
+                                                    <SelectItem value="4">
+                                                        4
+                                                    </SelectItem>
+                                                    <SelectItem value="5">
+                                                        5
+                                                    </SelectItem>
+                                                    <SelectItem value="More">
+                                                        More
+                                                    </SelectItem>
+                                                </SelectContent>
+                                            </Select>
                                         </FormControl>
                                         <FormDescription>
                                             Enter your number of shares.
@@ -949,27 +939,6 @@ export function ProfileForm() {
                                     </FormItem>
                                 )}
                             />
-                        </section>
-                        <section className="flex justify-between items-center">
-                            <Button
-                                variant="secondary"
-                                className="min-w-[256px] mt-8 mr-auto"
-                                onClick={() => setformStage(1)}
-                            >
-                                Back
-                            </Button>
-                            <Button
-                                className="min-w-[256px] mt-8 ml-auto"
-                                onClick={() => setformStage(3)}
-                            >
-                                Next
-                            </Button>
-                        </section>
-                    </div>
-                )}
-                {formStage === 3 && (
-                    <div className="max-w-4xl mx-auto">
-                        <section className="grid grid-cols-2 gap-12 ">
                             <FormField
                                 name="medicalClaimRequired"
                                 control={form.control}
@@ -1107,6 +1076,27 @@ export function ProfileForm() {
                                     </FormItem>
                                 )}
                             />
+                        </section>
+                        <section className="flex justify-between items-center">
+                            <Button
+                                variant="secondary"
+                                className="min-w-[256px] mt-8 mr-auto"
+                                onClick={() => setformStage(1)}
+                            >
+                                Back
+                            </Button>
+                            <Button
+                                className="min-w-[256px] mt-8 ml-auto"
+                                onClick={() => setformStage(3)}
+                            >
+                                Next
+                            </Button>
+                        </section>
+                    </div>
+                )}
+                {formStage === 3 && (
+                    <div className="max-w-4xl mx-auto">
+                        <section className="grid grid-cols-1 gap-12 pr-40 ">
                             <FormField
                                 name="relationshipOfGroupMember"
                                 control={form.control}
@@ -1116,53 +1106,30 @@ export function ProfileForm() {
                                             Relationship of Group Member
                                         </FormLabel>
                                         <FormControl>
-                                            <RadioGroup
-                                                onValueChange={field.onChange}
-                                            >
-                                                <FormItem className="flex items-center space-x-3 space-y-0">
-                                                    <FormControl>
-                                                        <RadioGroupItem
-                                                            value="Parent"
-                                                            className="flex items-center space-x-3 space-y-0"
-                                                        />
-                                                    </FormControl>
-                                                    <FormLabel>
+                                            <Select {...field}>
+                                                <FormControl>
+                                                    <SelectTrigger>
+                                                        <SelectValue placeholder="Select your relationship of group member." />
+                                                    </SelectTrigger>
+                                                </FormControl>
+                                                <SelectContent>
+                                                    <SelectItem value="Parent">
                                                         Parent
-                                                    </FormLabel>
-                                                </FormItem>
-                                                <FormItem className="flex items-center space-x-3 space-y-0">
-                                                    <RadioGroupItem
-                                                        value="Sibling"
-                                                        className="flex items-center space-x-3 space-y-0"
-                                                    />
-                                                    <FormLabel>
+                                                    </SelectItem>
+                                                    <SelectItem value="Sibling">
                                                         Sibling
-                                                    </FormLabel>
-                                                </FormItem>
-                                                <FormItem className="flex items-center space-x-3 space-y-0">
-                                                    <RadioGroupItem
-                                                        value="Spouse"
-                                                        className="flex items-center space-x-3 space-y-0"
-                                                    />
-                                                    <FormLabel>
+                                                    </SelectItem>
+                                                    <SelectItem value="Spouse">
                                                         Spouse
-                                                    </FormLabel>
-                                                </FormItem>
-                                                <FormItem className="flex items-center space-x-3 space-y-0">
-                                                    <RadioGroupItem
-                                                        value="Child"
-                                                        className="flex items-center space-x-3 space-y-0"
-                                                    />
-                                                    <FormLabel>Child</FormLabel>
-                                                </FormItem>
-                                                <FormItem className="flex items-center space-x-3 space-y-0">
-                                                    <RadioGroupItem
-                                                        value="Other"
-                                                        className="flex items-center space-x-3 space-y-0"
-                                                    />
-                                                    <FormLabel>Other</FormLabel>
-                                                </FormItem>
-                                            </RadioGroup>
+                                                    </SelectItem>
+                                                    <SelectItem value="Child">
+                                                        Child
+                                                    </SelectItem>
+                                                    <SelectItem value="Other">
+                                                        Other
+                                                    </SelectItem>
+                                                </SelectContent>
+                                            </Select>
                                         </FormControl>
                                         <FormDescription>
                                             Enter your relationship of group
@@ -1229,46 +1196,27 @@ export function ProfileForm() {
                                             Member Position in Bank
                                         </FormLabel>
                                         <FormControl>
-                                            <RadioGroup
-                                                onValueChange={field.onChange}
-                                            >
-                                                <FormItem className="flex items-center space-x-3 space-y-0">
-                                                    <FormControl>
-                                                        <RadioGroupItem
-                                                            value="Director"
-                                                            className="flex items-center space-x-3 space-y-0"
-                                                        />
-                                                    </FormControl>
-                                                    <FormLabel>
+                                            <Select {...field}>
+                                                <FormControl>
+                                                    <SelectTrigger>
+                                                        <SelectValue placeholder="Select your member position in bank." />
+                                                    </SelectTrigger>
+                                                </FormControl>
+                                                <SelectContent>
+                                                    <SelectItem value="Director">
                                                         Director
-                                                    </FormLabel>
-                                                </FormItem>
-                                                <FormItem className="flex items-center space-x-3 space-y-0">
-                                                    <RadioGroupItem
-                                                        value="Committee"
-                                                        className="flex items-center space-x-3 space-y-0"
-                                                    />
-                                                    <FormLabel>
+                                                    </SelectItem>
+                                                    <SelectItem value="Committee">
                                                         Committee
-                                                    </FormLabel>
-                                                </FormItem>
-                                                <FormItem className="flex items-center space-x-3 space-y-0">
-                                                    <RadioGroupItem
-                                                        value="Staff"
-                                                        className="flex items-center space-x-3 space-y-0"
-                                                    />
-                                                    <FormLabel>Staff</FormLabel>
-                                                </FormItem>
-                                                <FormItem className="flex items-center space-x-3 space-y-0">
-                                                    <RadioGroupItem
-                                                        value="General"
-                                                        className="flex items-center space-x-3 space-y-0"
-                                                    />
-                                                    <FormLabel>
+                                                    </SelectItem>
+                                                    <SelectItem value="Staff">
+                                                        Staff
+                                                    </SelectItem>
+                                                    <SelectItem value="General">
                                                         General
-                                                    </FormLabel>
-                                                </FormItem>
-                                            </RadioGroup>
+                                                    </SelectItem>
+                                                </SelectContent>
+                                            </Select>
                                         </FormControl>
                                         <FormDescription>
                                             Enter your member position in bank.
