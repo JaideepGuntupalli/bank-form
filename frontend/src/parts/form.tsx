@@ -167,7 +167,7 @@ export function ProfileForm() {
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                 {formStage === 0 && (
                     <div className="max-w-4xl mx-auto">
-                        <section className="grid grid-cols-2 gap-12 ">
+                        <section className="grid grid-cols-1 md:grid-cols-2 gap-12 ">
                             <div className="grid w-full max-w-sm items-center gap-1.5">
                                 <Label htmlFor="latestPhoto">
                                     Latest Photo
@@ -441,7 +441,7 @@ export function ProfileForm() {
                             )}
                         </section>
                         <Button
-                            className="min-w-[256px] mt-8 ml-auto"
+                            className="min-w-[96px] md:min-w-[256px] mt-8 ml-auto"
                             onClick={() => setformStage(1)}
                         >
                             Next
@@ -451,7 +451,7 @@ export function ProfileForm() {
 
                 {formStage === 1 && (
                     <div className="max-w-4xl mx-auto">
-                        <section className="grid grid-cols-2 gap-12 ">
+                        <section className="grid grid-cols-1 md:grid-cols-2 gap-12 ">
                             <FormField
                                 name="presentAddress"
                                 control={form.control}
@@ -745,13 +745,13 @@ export function ProfileForm() {
                         <section className="flex justify-between items-center">
                             <Button
                                 variant="secondary"
-                                className="min-w-[256px] mt-8 mr-auto"
+                                className="min-w-[96px] md:min-w-[256px] mt-8 mr-auto"
                                 onClick={() => setformStage(0)}
                             >
                                 Back
                             </Button>
                             <Button
-                                className="min-w-[256px] mt-8 ml-auto"
+                                className="min-w-[96px] md:min-w-[256px] mt-8 ml-auto"
                                 onClick={() => setformStage(2)}
                             >
                                 Next
@@ -761,7 +761,7 @@ export function ProfileForm() {
                 )}
                 {formStage === 2 && (
                     <div className="max-w-4xl mx-auto">
-                        <section className="grid grid-cols-2 gap-12 ">
+                        <section className="grid grid-cols-1 md:grid-cols-2 gap-12 ">
                             <FormField
                                 control={form.control}
                                 name="dateOfJoining"
@@ -1080,13 +1080,13 @@ export function ProfileForm() {
                         <section className="flex justify-between items-center">
                             <Button
                                 variant="secondary"
-                                className="min-w-[256px] mt-8 mr-auto"
+                                className="min-w-[96px] md:min-w-[256px] mt-8 mr-auto"
                                 onClick={() => setformStage(1)}
                             >
                                 Back
                             </Button>
                             <Button
-                                className="min-w-[256px] mt-8 ml-auto"
+                                className="min-w-[96px] md:min-w-[256px] mt-8 ml-auto"
                                 onClick={() => setformStage(3)}
                             >
                                 Next
@@ -1096,7 +1096,7 @@ export function ProfileForm() {
                 )}
                 {formStage === 3 && (
                     <div className="max-w-4xl mx-auto">
-                        <section className="grid grid-cols-1 gap-12 pr-40 ">
+                        <section className="grid grid-cols-1 gap-12 md:pr-40 ">
                             <FormField
                                 name="relationshipOfGroupMember"
                                 control={form.control}
@@ -1229,13 +1229,13 @@ export function ProfileForm() {
                         <section className="flex justify-between items-center">
                             <Button
                                 variant="secondary"
-                                className="min-w-[256px] mt-8 mr-auto"
+                                className="min-w-[96px] md:min-w-[256px] mt-8 mr-auto"
                                 onClick={() => setformStage(2)}
                             >
                                 Back
                             </Button>
                             <Button
-                                className="min-w-[256px] mt-8 ml-auto"
+                                className="min-w-[96px] md:min-w-[256px] mt-8 ml-auto"
                                 type="submit"
                             >
                                 Submit
